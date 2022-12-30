@@ -95,4 +95,6 @@ public class HashTables<K,V> {
        System.out.println("Frequency of words is as follows::: ");
        map.print();
    }
+   
+   
 }
