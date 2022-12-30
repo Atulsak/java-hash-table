@@ -10,7 +10,7 @@ class Hash<K,V> {
    final int hashCode;
    Hash<K,V> next;
 //Parameterized Constructor
-   Hash(K key, V value, int hashCode) {
+   public Hash(K key, V value, int hashCode) {
        this.key = key;
        this.value = value;
        this.hashCode = hashCode;
@@ -25,8 +25,8 @@ public class HashTables<K,V> {
 //   Current size of array list
    private int size;
 
-   HashTables() {
-       bucketList = new ArrayList<Hash>();
+   public HashTables() {
+       bucketList = new ArrayList<>();
        numOfBuckets = 10;
        size = 0;
 
@@ -35,12 +35,13 @@ public class HashTables<K,V> {
        }
    }
 
-   public int hashCode(K key){
+   private int hashCode(K key){
        return Objects.hashCode(key);
    }
 
    public int getBucketIndex(K key){
-       int index = hashCode(key) % numOfBuckets;
+       int hashCode = hashCode(key);
+       int index = hashCode % numOfBuckets;
        index = index < 0 ? index * -1 : index;
        return index;
    }
@@ -59,7 +60,7 @@ public class HashTables<K,V> {
            head = head.next;
        }
        size++;
-       head = bucketList.get(index); //head = null
+       head = bucketList.get(index);
        Hash<K,V> newNode = new Hash<K,V>(key, value, hashCode);
        newNode.next = head;
        bucketList.set(index, newNode);
@@ -73,7 +74,7 @@ public class HashTables<K,V> {
           else
               System.out.println(" [ ] ");
           while (temp != null){
-              System.out.println(" [ Key: " + temp.key + " Value: " + temp.value + " ] ==> ");
+              System.out.print(" [ Key: " + temp.key + " Value: " + temp.value + " ] ==> ");
               temp = temp.next;
           }
           if (head != null)
@@ -87,14 +88,13 @@ public class HashTables<K,V> {
        HashTables<Integer,String> map = new HashTables<>();
        String str = "To be or not to be";
        String[] strArray = str.split(" ");
-
+       Random random = new Random();
        for (int i = 0; i < strArray.length; i++){
-           map.add(i,strArray[i]);
+           map.add(random.nextInt(10),strArray[i]);
        }
 
        System.out.println("Frequency of words is as follows::: ");
        map.print();
    }
-   
-   
+
 }
